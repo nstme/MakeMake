@@ -1,0 +1,13 @@
+{
+  "name": "funkhaus-round-1",
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "start": "nuxt start"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.12.3",
+    "nuxt": "^2.14.10"
+  }
+}
