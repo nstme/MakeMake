@@ -1,5 +1,5 @@
 <template>
-  <main class="main">
+  <main>
     <site-header/>
     <nuxt/>
   </main>
@@ -24,13 +24,16 @@ export default {
   src: url('~assets/fonts/RMNeue-Regular.woff') format('woff');
 }
 
-body {
-  margin: 0;
-  background: #000000;
-  font-family: 'RM Neue', sans-serif;
+:root {
+  --yellow: #fdc760;
+  --black: #000000;
+  font-size: 62.5%;
 }
 
-.main {
-  color: #fdc760;
+body {
+  margin: 0;
+  background-color: var(--black);
+  font-family: 'RM Neue', sans-serif;
+  color: var(--yellow);
 }
 </style>

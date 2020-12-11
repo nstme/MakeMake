@@ -13,7 +13,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  transform: translateX(-50px) translateY(28px);
+  transform: translateX(-110px) translateY(28px);
   cursor: pointer;
 }
 
