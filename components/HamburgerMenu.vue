@@ -1,9 +1,27 @@
 <template>
-  <div class="hamburger-menu">
+  <div v-bind:class="[isActive ? 'cross' : '']" class="hamburger-menu" @click="hMenuClicked">
     <div class="line line-1"></div>
     <div class="line line-2"></div>
   </div>
 </template>
+
+<script>
+import { mapState } from 'vuex';
+
+export default {
+  methods: {
+    hMenuClicked () {
+      this.$store.commit('clicked');
+      this.$store.commit('increment');
+    },
+  },
+  computed: {
+    ...mapState({
+        isActive: 'isActive'
+    }),
+  }
+}
+</script>
 
 <style scoped>
 .hamburger-menu {
@@ -21,10 +39,19 @@
   background-color: #fdc760;
   height: 2px;
   width: 30px;
+  transition: transform 0.4s ease-in-out;
 }
 
 .hamburger-menu .line-2 {
   transform: translateY(8px);
+}
+
+.cross.hamburger-menu .line-1 {
+  transform: translateY(2px) rotateZ(45deg);
+}
+
+.cross.hamburger-menu .line-2 {
+  transform: rotateZ(-45deg);
 }
 
 </style>
