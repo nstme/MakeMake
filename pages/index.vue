@@ -96,4 +96,11 @@ export default {
   margin: 16px 0;
   font-size: 2.4rem;
 }
+
+@media screen and (max-width: 800px) {
+  .editors, .editors ul {
+    margin-top: 30px;
+    transition: transform 0.4s ease-in-out;
+  }
+}
 </style>
