@@ -4,8 +4,9 @@
       <article class="editors">
         <h1 v-html='title'/>
         <ul class="list">
-          <li v-for='item in items' :key='item' class="editor">
-            <p>{{item}}</p>
+          <li v-for='editor in sortedEditors' class="editor">
+            <p>{{editor.name}}</p>
+            <img :src="editor.images[0]" alt="img">
           </li>
         </ul>
       </article>
@@ -28,14 +29,24 @@ export default {
   },
   async asyncData({$axios}) {
     const data = await $axios.$get('https://raw.githubusercontent.com/funkhaus/technical-assessment-round-1/master/db.json');
-    const editorTitles = [];
-    for (const [key, value] of Object.entries(data.pages)) {
-      editorTitles.push(value.title);
+    const editors = [];
+    const imagesUrl = [];
+
+    for (const [, value] of Object.entries(data.images)) {
+      imagesUrl.push(value.sourceUrl);
     };
-    const sortedEditorTitles = [...editorTitles].sort();
+
+    for (const [, value] of Object.entries(data.pages)) {
+      editors.push({
+        name: value.title,
+        images: [value.featuredImage.sourceUrl, ...imagesUrl],
+      });
+    };
+
+    const sortedEditors = [...editors].sort((a, b) => (a.name > b.name) ? 1 : -1);
     return {
       title: data.page.title,
-      items: sortedEditorTitles,
+      sortedEditors,
     }
   }
 }
