@@ -54,7 +54,7 @@ export default {
 
 <style scoped>
 .page-home {
-  height: 100vh;
+  height: var(--real100vh);
 }
 
 .container {

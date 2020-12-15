@@ -12,6 +12,17 @@ export default {
   name: "main",
   components: {
     SiteHeader,
+  },
+  methods: {
+    set100vhVar() {
+      // This fixes the 100vh iOS bug/feature.
+      // If less than most tablets, set var to window height.
+      let value = ""
+      if (this.winWidth <= 1024) {
+          value = `${window.innerHeight}px`
+      }
+      document.documentElement.style.setProperty("--real100vh", value)
+    },
   }
 }
 </script>
@@ -25,6 +36,7 @@ export default {
 }
 
 :root {
+  --real100vh: 100vh;
   --yellow: #fdc760;
   --black: #000000;
   font-size: 62.5%;
