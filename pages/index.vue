@@ -4,13 +4,13 @@
       <article class="editors">
         <h1 v-html='title'/>
         <ul class="list">
-          <li v-for='editor in sortedEditors' class="editor">
+          <li v-for='editor in sortedEditors' class="editor" v-bind:key=editor>
             <p @mouseover="hover = true, selectedEditorName = editor.name, selectedImages = editor.images"
             @mouseleave="hover = false, selectedEditorName = undefined, selectedImages = undefined">{{editor.name}}</p>
           </li>
         </ul>
         <ul class="slides" v-if='hover'>
-          <li v-for='image in selectedImages'>
+          <li v-for='image in selectedImages' v-bind:key=image>
             <img class="slides" :src=image.sourceUrl :src-set=image.srcSet width=930 alt="img">
           </li>
         </ul>
