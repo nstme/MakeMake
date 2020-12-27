@@ -9,7 +9,7 @@
 import SiteHeader from '~/components/SiteHeader';
 
 export default {
-  name: "main",
+  name: "funkhaus-round-1",
   components: {
     SiteHeader,
   },
