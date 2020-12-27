@@ -1,3 +1,4 @@
 export default {
-  modules: ['@nuxtjs/axios']
+  modules: ['@nuxtjs/axios'],
+  target: 'static',
 }
