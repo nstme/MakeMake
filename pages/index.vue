@@ -5,8 +5,7 @@
         <h1 v-html='title'/>
         <ul class="list">
           <li v-for='editor in sortedEditors' class="editor" v-bind:key=editor>
-            <p @mouseover="hover = true, selectedEditorName = editor.name, selectedImages = editor.images"
-            @mouseleave="hover = false, selectedEditorName = undefined, selectedImages = undefined">{{editor.name}}</p>
+            <p @mouseover="onMouseOver(editor)" @mouseleave="onMouseLeave(editor)">{{editor.name}}</p>
           </li>
         </ul>
         <ul class="slides" v-if='hover'>
@@ -25,7 +24,6 @@ export default {
     return {
       editorsData: [],
       hover: false,
-      selectedEditorName: undefined,
       selectedImages: undefined,
     }
   },
@@ -47,14 +45,22 @@ export default {
       return [...this.editors].sort((a, b) => (a.name > b.name) ? 1 : -1)
     },
     title() {
-      return this.editorsData.page.title
+      return this.editorsData.pages.title
+    },
+  },
+  methods: {
+    onMouseOver: function(editor) {
+      this.hover = true;
+      this.selectedImages = editor.images;
+    },
+    onMouseLeave: function(editor) {
+      this.hover = false;
+      this.selectedImages = undefined;
     }
   },
   async asyncData({$axios}) {
     const editorsData = await $axios.$get('https://raw.githubusercontent.com/nstme/mock-db-images/main/db.json'); 
-    return {
-      editorsData
-    }
+    return { editorsData }
   }
 }
 </script>
