@@ -23,31 +23,37 @@
 export default {
   data() {
     return {
+      editorsData: [],
       hover: false,
       selectedEditorName: undefined,
       selectedImages: undefined,
     }
   },
+  computed: {
+    images() {
+      return [...this.editorsData.images]
+    },
+    editors() {
+      const editors = [];
+      this.editorsData.pages.forEach((element) => {
+        editors.push({
+          name: element.title,
+          images: [element.featuredImage, ...this.images],
+        })
+      })
+      return editors
+    },
+    sortedEditors() {
+      return [...this.editors].sort((a, b) => (a.name > b.name) ? 1 : -1)
+    },
+    title() {
+      return this.editorsData.page.title
+    }
+  },
   async asyncData({$axios}) {
-    const data = await $axios.$get('https://raw.githubusercontent.com/nstme/mock-db-images/main/db.json');
-    const editors = [];
-    const images = [];
-
-    for (const [, value] of Object.entries(data.images)) {
-      images.push(value);
-    };
-
-    for (const [, value] of Object.entries(data.pages)) {
-      editors.push({
-        name: value.title,
-        images: [value.featuredImage, ...images],
-      });
-    };
-
-    const sortedEditors = [...editors].sort((a, b) => (a.name > b.name) ? 1 : -1);
+    const editorsData = await $axios.$get('https://raw.githubusercontent.com/nstme/mock-db-images/main/db.json'); 
     return {
-      title: data.page.title,
-      sortedEditors,
+      editorsData
     }
   }
 }
