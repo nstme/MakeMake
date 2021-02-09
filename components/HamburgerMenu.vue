@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:class="[isActive ? 'cross' : '']" class="hamburger-menu" @click="hMenuClicked">
+  <div v-bind:class="classes" @click="hMenuClicked">
     <div class="line line-1"></div>
     <div class="line line-2"></div>
   </div>
@@ -17,8 +17,11 @@ export default {
   },
   computed: {
     ...mapState({
-        isActive: 'isActive'
+      isActive: 'isActive'
     }),
+    classes() {
+      return ["hamburger-menu", {'is-opened' : this.isActive}]
+    }
   }
 }
 </script>
@@ -47,11 +50,11 @@ export default {
   transform: translateY(8px);
 }
 
-.cross.hamburger-menu .line-1 {
+.is-opened.hamburger-menu .line-1 {
   transform: translateY(2px) rotateZ(45deg);
 }
 
-.cross.hamburger-menu .line-2 {
+.is-opened.hamburger-menu .line-2 {
   transform: rotateZ(-45deg);
 }
 
