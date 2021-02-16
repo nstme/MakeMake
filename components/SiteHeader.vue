@@ -1,27 +1,28 @@
 <template>
   <header class="site-header">
     <a href="https://google.com" class="link">
-      <!-- <img src="~/assets/svg/logo-makemake.svg" height=20 width=auto alt="makemake logo" > -->
-      <svg-makemake-logo class="logo"/>
+      <img src="~/assets/svg/makemake-logo.svg" height=20 width=auto alt="makemake logo" class="logo">
+      <!-- <svg-makemake-logo class="logo"/> -->
     </a>
     <a href="https://google.com" class="link logo-rps">
-      <!-- <img src="~/assets/svg/logo-rps.svg" height=50 width=auto alt="rps logo"> -->
-      <svg-rps-logo class="logo logo-rps"/>
+      <img src="~/assets/svg/rps-logo.svg" height=50 width=auto alt="rps logo" class="logo">
+      <!-- <svg-rps-logo class="logo logo-rps"/> -->
     </a>
     <hamburger-menu/>
   </header>
 </template>
 
 <script>
-import SvgMakemakeLogo from '~/assets/svg/makemake-logo.svg';
-import SvgRpsLogo from '~/assets/svg/rps-logo.svg';
+//todo: get svg loader
+// import SvgMakemakeLogo from '~/assets/svg/makemake-logo.svg';
+// import SvgRpsLogo from '~/assets/svg/rps-logo.svg';
 import HamburgerMenu from '~/components/HamburgerMenu';
 
 export default {
   name: "SiteHeader",
   components: {
-    SvgMakemakeLogo,
-    SvgRpsLogo,
+    // SvgMakemakeLogo,
+    // SvgRpsLogo,
     HamburgerMenu,
   }
 }
