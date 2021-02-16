@@ -50,11 +50,11 @@ export default {
   transform: translateY(8px);
 }
 
-.is-opened.hamburger-menu .line-1 {
+.hamburger-menu.is-opened .line-1 {
   transform: translateY(2px) rotateZ(45deg);
 }
 
-.is-opened.hamburger-menu .line-2 {
+.hamburger-menu.is-opened .line-2 {
   transform: rotateZ(-45deg);
 }
 

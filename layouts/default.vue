@@ -39,6 +39,7 @@ export default {
   --real100vh: 100vh;
   --yellow: #fdc760;
   --black: #000000;
+  --max-width: 80%;
   font-size: 62.5%;
 }
 
@@ -47,5 +48,11 @@ body {
   background-color: var(--black);
   font-family: 'RM Neue', sans-serif;
   color: var(--yellow);
+  height: var(--real100vh);
+}
+
+p {
+  margin: 0;
+  padding: 0;
 }
 </style>
