@@ -1,21 +1,17 @@
 <template>
-  <div class="page-home">
-    <div class="container">
-      <article class="editors">
-        <h1 v-html='title'/>
-        <ul class="list">
-          <li v-for='editor in sortedEditors' class="editor" v-bind:key=editor>
-            <p @mouseover="onMouseOver(editor)" @mouseleave="onMouseLeave(editor)">{{editor.name}}</p>
-          </li>
-        </ul>
-        <ul class="slides" v-if='hover'>
-          <li v-for='image in selectedImages' v-bind:key=image>
-            <img class="slides" :src=image.sourceUrl :src-set=image.srcSet width=930 alt="img">
-          </li>
-        </ul>
-      </article>
-    </div>
-  </div>
+  <article class="editors">
+    <h2 class="title" v-html='title'/>
+    <ul class="list">
+      <li v-for='editor in sortedEditors' class="editor" v-bind:key=editor>
+        <p @mouseover="onMouseOver(editor)" @mouseleave="onMouseLeave(editor)">{{editor.name}}</p>
+      </li>
+    </ul>
+    <ul class="slideshow" v-if='hover'>
+      <li v-for='image in selectedImages' v-bind:key=image>
+        <img class=" slide" :src=image.sourceUrl :src-set=image.srcSet alt="media image">
+      </li>
+    </ul>
+  </article>
 </template>
 
 <script>
@@ -23,7 +19,7 @@ export default {
   data() {
     return {
       editorsData: [],
-      hover: false,
+      hover: false, 
       selectedImages: undefined,
     }
   },
@@ -45,7 +41,7 @@ export default {
       return [...this.editors].sort((a, b) => (a.name > b.name) ? 1 : -1)
     },
     title() {
-      return this.editorsData.pages.title
+      return this.editorsData.page.title
     },
   },
   methods: {
@@ -66,35 +62,22 @@ export default {
 </script>
 
 <style scoped>
-.page-home {
-  height: var(--real100vh);
-}
-
-.container {
-  width: 1180px;
-  max-width: 80%;
-}
-
-.page-home .container {
+.editors {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  width: 1180px;
+  max-width: var(--max-width);
   margin: auto;
-}
-
-.editors {
-  position: relative;
   margin-top: -50px;
+  position: relative;
   z-index: 500;
 }
 
-.editors h1 {
+.editors .title {
   text-align: center;
   font-size: 1.8rem;
-}
-
-.editors ul {
-  list-style-type:none
 }
 
 .editors .list {
@@ -103,27 +86,36 @@ export default {
   flex-wrap: wrap;
   padding: 0;
   margin-top: 162px;
+  list-style-type: none;
 }
 
-.editors .list li {
+.editors .list .editor {
   min-width: 340px;
   width: 33%;
-}
-
-.editors .list p {
-  margin: 16px 0;
   font-size: 2.4rem;
+  margin: 16px 0;
 }
 
-.slides {
+.editors .slideshow {
   position: absolute;
-  top: calc(50px + 50%);
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 150px;
+  bottom: -100px;
+  left: 50px;
+  right: 50px;
+  margin: auto;
   z-index: -999;
+  list-style-type: none;
 }
 
-.slides > * {
+.editors .slide {
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute; 
+  top: 0;
+  left: 10%;
+}
+
+.editors .slideshow  > * {
   animation: 12s autoplay infinite linear;
   opacity: 0.0;
 }
@@ -136,42 +128,42 @@ export default {
   100% {opacity: 0.0}
 }
 
-.slides > *:nth-child(1) {
-  animation-delay: 0s
+.slideshow > *:nth-child(1) {
+  animation-delay: 0s;
 }
-.slides > *:nth-child(2) {
+.slideshow > *:nth-child(2) {
   animation-delay: 4s
 }
-.slides > *:nth-child(3) {
+.slideshow > *:nth-child(3) {
   animation-delay: 8s
 }
-.slides > *:nth-child(4) {
+.slideshow > *:nth-child(4) {
   animation-delay: 12s
 }
-.slides > *:nth-child(5) {
+.slideshow > *:nth-child(5) {
   animation-delay: 16s
 }
-.slides > *:nth-child(6) {
+.slideshow > *:nth-child(6) {
   animation-delay: 20s
 }
-.slides > *:nth-child(7) {
+.slideshow > *:nth-child(7) {
   animation-delay: 24s
 }
-.slides > *:nth-child(8) {
+.slideshow > *:nth-child(8) {
   animation-delay: 28s
 }
-.slides > *:nth-child(9) {
+.slideshow > *:nth-child(9) {
   animation-delay: 32s
 }
-.slides > *:nth-child(10) {
+.slideshow > *:nth-child(10) {
   animation-delay: 36s
 }
-.slides > *:nth-child(11) {
+.slideshow > *:nth-child(11) {
   animation-delay: 40s
 }
 
 @media screen and (max-width: 800px) {
-  .editors, .editors ul {
+  .editors, .editors .list {
     margin-top: 30px;
     transition: transform 0.4s ease-in-out;
   }

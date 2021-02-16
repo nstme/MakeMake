@@ -1,23 +1,27 @@
 <template>
   <header class="site-header">
-    <div class="container">
-      <a href="#" class="link">
-        <img src="~/assets/images/logo-makemake.svg" height=20 width=auto alt="makemake logo" >
-      </a>
-      <a href="#" class="link logo-rps">
-        <img src="~/assets/images/logo-rps.svg" height=50 width=auto alt="rps logo">
-      </a>
-      <hamburger-menu/>
-    </div>
+    <a href="https://google.com" class="link">
+      <!-- <img src="~/assets/svg/logo-makemake.svg" height=20 width=auto alt="makemake logo" > -->
+      <svg-makemake-logo class="logo"/>
+    </a>
+    <a href="https://google.com" class="link logo-rps">
+      <!-- <img src="~/assets/svg/logo-rps.svg" height=50 width=auto alt="rps logo"> -->
+      <svg-rps-logo class="logo logo-rps"/>
+    </a>
+    <hamburger-menu/>
   </header>
 </template>
 
 <script>
+import SvgMakemakeLogo from '~/assets/svg/makemake-logo.svg';
+import SvgRpsLogo from '~/assets/svg/rps-logo.svg';
 import HamburgerMenu from '~/components/HamburgerMenu';
 
 export default {
   name: "SiteHeader",
   components: {
+    SvgMakemakeLogo,
+    SvgRpsLogo,
     HamburgerMenu,
   }
 }
@@ -25,28 +29,20 @@ export default {
 
 <style scoped>
 .site-header {
-  width: 100%;
-  height: 50px;
-  margin-top: 30px;
-}
-
-.container {
   width: 1180px;
-  max-width: 80%;
-}
-
-.site-header .container {
+  max-width: var(--max-width);
+  margin: auto;
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: auto;
 }
 
-.link img {
+.site-header .logo {
   display: block;
 }
 
-.logo-rps {
+.site-header .logo-rps {
   padding-right: 58px;
 }
 </style>
