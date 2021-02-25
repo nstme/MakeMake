@@ -31,10 +31,8 @@ export default {
   height: 12px;
   width: 30px;
   padding: 20px;
-  position: fixed;
   top: 0;
   right: 0;
-  transform: translateX(100%) translateX(-150px) translateY(28px);
   cursor: pointer;
   transition: transform 0.4s ease-in-out;
 }
@@ -56,11 +54,5 @@ export default {
 
 .hamburger-menu.is-opened .line-2 {
   transform: rotateZ(-45deg);
-}
-
-@media screen and (max-width: 800px) {
-  .hamburger-menu {
-    transform: translateX(-20px) translateY(28px);
-  }
 }
 </style>

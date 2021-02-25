@@ -1,17 +1,16 @@
 <template>
-  <article class="editors">
-    <h2 class="title" v-html='title'/>
+  <section class="editors">
     <ul class="list">
       <li v-for='editor in sortedEditors' class="editor" v-bind:key=editor>
         <p @mouseover="onMouseOver(editor)" @mouseleave="onMouseLeave(editor)">{{editor.name}}</p>
       </li>
+      <ul class="slideshow" v-if='hover'>
+        <li v-for='image in selectedImages' v-bind:key=image>
+          <img class=" slide" :src=image.sourceUrl :src-set=image.srcSet alt="media image">
+        </li>
+      </ul>
     </ul>
-    <ul class="slideshow" v-if='hover'>
-      <li v-for='image in selectedImages' v-bind:key=image>
-        <img class=" slide" :src=image.sourceUrl :src-set=image.srcSet alt="media image">
-      </li>
-    </ul>
-  </article>
+  </section>
 </template>
 
 <script>
@@ -63,29 +62,26 @@ export default {
 
 <style scoped>
 .editors {
+  position: relative;
+  max-width: var(--max-width);
+  height: var(--real100vh);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 var(--gutter);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 1180px;
-  max-width: var(--max-width);
-  margin: auto;
-  margin-top: -50px;
-  position: relative;
+  box-sizing: border-box;
   z-index: 500;
+  border: 2px solid whitesmoke;
 }
 
-.editors .title {
-  text-align: center;
-  font-size: 1.8rem;
-}
-
-.editors .list {
+.editors .list { 
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   padding: 0;
-  margin-top: 162px;
   list-style-type: none;
 }
 
@@ -98,21 +94,26 @@ export default {
 
 .editors .slideshow {
   position: absolute;
-  top: 150px;
-  bottom: -100px;
-  left: 50px;
-  right: 50px;
+  top: var(--header-height);
+  bottom: 0;
+  left: 10%;
+  right: 10%;
   margin: auto;
   z-index: -999;
   list-style-type: none;
+  border: 2px solid green;
 }
 
 .editors .slide {
-  max-width: 100%;
-  max-height: 100%;
   position: absolute; 
   top: 0;
-  left: 10%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100%; 
+  object-fit: fill;
+  border: 2px solid red;
 }
 
 .editors .slideshow  > * {
@@ -162,9 +163,9 @@ export default {
   animation-delay: 40s
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1122px) {
   .editors, .editors .list {
-    margin-top: 30px;
+    margin-top: var(--header-height);
     transition: transform 0.4s ease-in-out;
   }
 }

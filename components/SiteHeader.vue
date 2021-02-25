@@ -1,14 +1,15 @@
 <template>
   <header class="site-header">
-    <a href="https://google.com" class="link">
-      <img src="~/assets/svg/makemake-logo.svg" height=20 width=auto alt="makemake logo" class="logo">
+    <a href="https://google.com" class="link makemake-logo">
+      <img src="~/assets/svg/makemake-logo.svg" height=20 width=auto alt="makemake logo">
       <!-- <svg-makemake-logo class="logo"/> -->
     </a>
-    <a href="https://google.com" class="link logo-rps">
-      <img src="~/assets/svg/rps-logo.svg" height=50 width=auto alt="rps logo" class="logo">
+    <a href="https://google.com" class="link rps-logo">
+      <img src="~/assets/svg/rps-logo.svg" height=50 width=auto alt="rps logo">
       <!-- <svg-rps-logo class="logo logo-rps"/> -->
     </a>
     <hamburger-menu/>
+    <h2 class='crumb'>Editors</h2>
   </header>
 </template>
 
@@ -30,20 +31,37 @@ export default {
 
 <style scoped>
 .site-header {
-  width: 1180px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
   max-width: var(--max-width);
-  margin: auto;
-  margin-top: 30px;
+  height: var(--header-height);
+  box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
   align-items: center;
 }
 
-.site-header .logo {
-  display: block;
+.site-header .makemake-logo {
+  margin-right: auto;
 }
 
-.site-header .logo-rps {
-  padding-right: 58px;
+.site-header .rps-logo {
+  transform: translateX(-10px);
+}
+
+.crumb {
+  position: absolute;
+  text-align: center;
+  font-size: 1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>

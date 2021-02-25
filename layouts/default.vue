@@ -39,7 +39,9 @@ export default {
   --real100vh: 100vh;
   --yellow: #fdc760;
   --black: #000000;
-  --max-width: 80%;
+  --max-width: 1800px;
+  --gutter: 50px;
+  --header-height: 110px;
   font-size: 62.5%;
 }
 
