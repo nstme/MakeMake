@@ -6,24 +6,24 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
 export default {
   methods: {
-    hMenuClicked () {
-      this.$store.commit('clicked');
-      this.$store.commit('increment');
-    },
+    hMenuClicked() {
+      this.$store.commit("clicked");
+      this.$store.commit("increment");
+    }
   },
   computed: {
     ...mapState({
-      isActive: 'isActive'
+      isActive: "isActive"
     }),
     classes() {
-      return ["hamburger-menu", {'is-opened' : this.isActive}]
+      return ["hamburger-menu", { "is-opened": this.isActive }];
     }
   }
-}
+};
 </script>
 
 <style scoped>

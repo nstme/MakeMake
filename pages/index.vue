@@ -1,17 +1,14 @@
 <template>
   <section class="editors">
-    <ul class="list">
-      <li v-for="editor in sortedEditors" class="editor" v-bind:key="editor">
+    <ul class="list" v-for="(subList, index) in newList" v-bind:key="index">
+      <li class="editor" v-for="editor in subList" v-bind:key="editor.name">
         <p @mouseover="onMouseOver(editor)" @mouseleave="onMouseLeave(editor)">{{ editor.name }}</p>
-        <ul class="slideshow" v-if="hover">
-          <li v-for="image in selectedImages" v-bind:key="image">
-            <img class="slide" :src="image.sourceUrl" :src-set="image.srcSet" alt="media image" />
-          </li>
-        </ul>
       </li>
-    </ul>
-    <ul v-for="el in newList">
-      <li v-for="n in el">{{n.name}}</li>
+      <ul class="slideshow" v-if="hover">
+        <li v-for="image in selectedImages" v-bind:key="image">
+          <img class="slide" :src="image.sourceUrl" :src-set="image.srcSet" alt="media image" />
+        </li>
+      </ul>
     </ul>
   </section>
 </template>
@@ -23,8 +20,13 @@ export default {
       editorsData: [],
       hover: false,
       selectedImages: undefined,
-      columnCount: 1
+      windowWidth: undefined
     };
+  },
+  //beforeMount has access to window web api
+  beforeMount() {
+    window.addEventListener("resize", this.handleResize);
+    this.windowWidth = window.innerWidth;
   },
   computed: {
     images() {
@@ -43,15 +45,29 @@ export default {
     sortedEditors() {
       return [...this.editors].sort((a, b) => (a.name > b.name ? 1 : -1));
     },
-    newList() {
-      const length1 = this.sortedEditors.length; //14
-      const itemQtyInColumn = Math.ceil(length1 / 2); // 5
-      const yolo = [];
-      const newsortedEditors = [...this.sortedEditors];
-      while (newsortedEditors.length) {
-        yolo.push(newsortedEditors.splice(0, itemQtyInColumn));
+    // change columnCount based on window width (device)
+    columnCount() {
+      let columnCount = 1;
+      let windowWidth = this.windowWidth;
+      if (windowWidth >= 1024) {
+        columnCount = 3;
+      } else if (windowWidth >= 425) {
+        columnCount = 2;
       }
-      return yolo;
+      return columnCount;
+    },
+    //generate 2d array: editor[][] based on columnCount
+    newList() {
+      const listLength = this.sortedEditors.length; //14
+      const itemsQtyInColumn = Math.ceil(listLength / this.columnCount); // 5 or 7
+      const newList = [];
+      const sortedEditorsCopy = [...this.sortedEditors];
+      //while sortedEditorsCopy has elements
+      while (sortedEditorsCopy.length) {
+        //remove chunk of sortedEditorsCopy and push it into newList
+        newList.push(sortedEditorsCopy.splice(0, itemsQtyInColumn));
+      }
+      return newList;
     },
     title() {
       return this.editorsData.page.title;
@@ -65,6 +81,9 @@ export default {
     onMouseLeave: function(editor) {
       this.hover = false;
       this.selectedImages = undefined;
+    },
+    handleResize() {
+      this.windowWidth = window.innerWidth;
     }
   },
   async asyncData({ $axios }) {
@@ -86,27 +105,30 @@ export default {
   padding: 0 var(--gutter);
   padding-top: var(--header-height);
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
   box-sizing: border-box;
-  z-index: 500;
+  z-index: 0;
   border: 2px solid whitesmoke;
 }
 
 .editors .list {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-  /* padding-top: var(--header-height); */
   list-style-type: none;
 }
 
 .editors .list .editor {
-  min-width: 340px;
-  width: 33%;
+  display: flex;
+  flex-direction: row;
   font-size: 2.4rem;
   margin: 16px 0;
+}
+
+.editors .list .editor:hover {
+  color: #ffffff;
 }
 
 .editors .slideshow {
@@ -116,9 +138,8 @@ export default {
   left: 20%;
   right: 20%;
   margin: auto;
-  z-index: -999;
+  z-index: -100;
   list-style-type: none;
-  border: 2px solid green;
 }
 
 .editors .slide {
@@ -131,7 +152,6 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border: 2px solid red;
 }
 
 .editors .slideshow > * {
@@ -189,12 +209,5 @@ export default {
 }
 .slideshow > *:nth-child(11) {
   animation-delay: 40s;
-}
-
-@media screen and (max-width: 783px) {
-  /* .editors,
-  .editors .list {
-    transition: transform 4s ease-in-out;
-  } */
 }
 </style>
