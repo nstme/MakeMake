@@ -110,7 +110,6 @@ export default {
   align-items: flex-start;
   box-sizing: border-box;
   z-index: 0;
-  border: 2px solid whitesmoke;
 }
 
 .editors .list {
